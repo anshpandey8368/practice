@@ -1,15 +1,14 @@
-// controllers/userController.js
-
 const User = require('../model/usermodel');
+const path = require('path');
 
 exports.createUser = async (req, res) => {
   try {
     const { username, password } = req.body;
     const newUser = new User({ username, password });
     await newUser.save();
-    res.send('User saved successfully');
+    res.sendFile(path.join(__dirname, '..', 'views' , 'landingpage.html'))
   } catch (error) {
     console.error('Error saving user:', error);
-    res.status(500).send('Error saving user');
+    res.redirect('/');
   }
 };
